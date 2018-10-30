@@ -72,14 +72,63 @@
             "metadata": {
                 "description": "Azure custome script runs after the VM has been deployed "
             }
+        },
+        "virtualNetworkName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the virtual network"
+            }
+        },
+        "addressPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "CIDR for VNET"
+            }
+        },
+        "subnet1Name": {
+            "type": "string",
+            "metadata": {
+                "description": "Subnet to be used/created where the VM will be deployed"
+            }
+        },
+        "subnet1Prefix": {
+            "type": "string",
+            "metadata": {
+                "description": "CIDR for subnet to be used/created where the VM will be deployed"
+            }
+        },
+        "ssh_key_data": {
+            "type": "securestring",
+            "metadata": {
+                "displayName": "SSH public key string",
+                "description": "SSH public key string"
+            }
+        },
+        "os_disk_storage_type": {
+            "type": "string",
+            "allowedValues": [
+                "Standard_LRS",
+                "Premium_LRS"
+            ],
+            "defaultValue": "Premium_LRS",
+            "metadata": {
+                "displayName": "OS disk storage type",
+                "description": "OS disk storage type. Standard_LRS uses HDD storage, Premium_LRS uses SSD storage"
+            }
+        },
+        "os_disk_size_gb": {
+            "type": "int",
+            "defaultValue": 128,
+            "minValue": 32,
+            "maxValue": 4096,
+            "metadata": {
+                "displayName": "OS disk size",
+                "description": "OS disk size in GB"
+            }
         }
     },
     "variables": {
-        "virtualNetworkName": "myVNET",
-        "addressPrefix": "10.0.0.0/16",
-        "subnet1Name": "Subnet-1",
-        "subnet1Prefix": "10.0.0.0/24",
-        "subnet1Ref": "[resourceId('Microsoft.Network/virtualNetworks/subnets',variables('virtualNetworkName'),variables('subnet1Name'))]",
+        "subnet1Ref": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('virtualNetworkName'),parameters('subnet1Name'))]",
         "Ubuntu1604": {
             "publisher": "Canonical",
             "offer": "UbuntuServer",
@@ -109,20 +158,20 @@
     "resources": [
         {
             "type": "Microsoft.Network/virtualNetworks",
-            "name": "[variables('virtualNetworkName')]",
+            "name": "[parameters('virtualNetworkName')]",
             "apiVersion": "2016-03-30",
             "location": "[parameters('location')]",
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
-                        "[variables('addressPrefix')]"
+                        "[parameters('addressPrefix')]"
                     ]
                 },
                 "subnets": [
                     {
-                        "name": "[variables('subnet1Name')]",
+                        "name": "[parameters('subnet1Name')]",
                         "properties": {
-                            "addressPrefix": "[variables('subnet1Prefix')]"
+                            "addressPrefix": "[parameters('subnet1Prefix')]"
                         }
                     }
                 ]
@@ -138,7 +187,7 @@
                 "count": "[parameters('numberOfInstances')]"
             },
             "dependsOn": [
-                "[variables('virtualNetworkName')]"
+                "[parameters('virtualNetworkName')]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -178,7 +227,11 @@
                 "storageProfile": {
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
-                        "createOption": "FromImage"
+                        "createOption": "FromImage",
+                        "diskSizeGB": "[parameters('os_disk_size_gb')]",
+                        "managedDisk": {
+                            "storageAccountType": "[parameters('os_disk_storage_type')]"
+                        }
                     }
                 },
                 "networkProfile": {
@@ -203,15 +256,14 @@
                 "[concat('Microsoft.Compute/virtualMachines/', concat(parameters('vmNamePrefix'),copyIndex()))]"
             ],
             "properties": {
-              "publisher": "Microsoft.Azure.Extensions",
-              "type": "CustomScript",
-              "typeHandlerVersion": "2.0",
-              "autoUpgradeMinorVersion": true,
-              "settings": {
-                "commandToExecute": "[parameters('postDeployShellScript')]"
-              }
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.0",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "commandToExecute": "[parameters('postDeployShellScript')]"
+                }
             }
-      
         }
     ]
 }
