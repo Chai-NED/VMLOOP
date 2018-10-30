@@ -1,1 +1,2 @@
-#!/usr/bin/bash touch /tmp/postscript.out
+#!/usr/bin/sh -x
+touch /tmp/postscript.out
