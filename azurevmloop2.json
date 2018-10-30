@@ -52,7 +52,19 @@
                 "Standard_E64is_v3"
             ],
             "metadata": {
-                "description": ""
+                "description": "Allowed SKUs"
+            }
+        },
+        "vmNamePrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "Prefix for name of VMs. Must be unique for each deployment"
+            }
+        },
+        "NicPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "Prefix for NIC. Must be unique for each deployment"
             }
         },
         "postDeployShellScript": {
@@ -118,7 +130,7 @@
         },
         {
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[concat('nic', copyindex())]",
+            "name": "[concat(parameters('NicPrefix'), copyindex())]",
             "apiVersion": "2016-03-30",
             "location": "[parameters('location')]",
             "copy": {
@@ -144,7 +156,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[concat('myvm', copyIndex())]",
+            "name": "[concat(parameters('vmNamePrefix') ,copyIndex()) ]",
             "apiVersion": "2016-04-30-preview",
             "location": "[parameters('location')]",
             "copy": {
@@ -172,11 +184,34 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat('nic', copyindex()))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('NicPrefix'), copyindex()))]"
                         }
                     ]
                 }
             }
+        },
+        {
+            "copy": {
+                "name": "ExtensionCopy",
+                "count": "[parameters('numberOfInstances')]"
+            },
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "[concat(parameters('vmNamePrefix'),CopyIndex(),'/','extensions')]",
+            "apiVersion": "2017-03-30",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', concat(parameters('vmNamePrefix'),copyIndex()))]"
+            ],
+            "properties": {
+              "publisher": "Microsoft.Azure.Extensions",
+              "type": "CustomScript",
+              "typeHandlerVersion": "2.0",
+              "autoUpgradeMinorVersion": true,
+              "settings": {
+                "commandToExecute": "[parameters('postDeployShellScript')]"
+              }
+            }
+      
         }
     ]
 }
