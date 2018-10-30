@@ -48,7 +48,7 @@
             "value": "https://github.com/Chai-NED/VMLOOP/blob/master/postscript.sh"
         },
         "postDeploymentScript": {
-            "value": "sh postscript.sh"
+            "value": "postscript.sh"
         }
     }
 }

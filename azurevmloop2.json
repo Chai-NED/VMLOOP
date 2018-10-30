@@ -67,7 +67,7 @@
                 "description": "Prefix for NIC. Must be unique for each deployment"
             }
         },
-        "postDeployShellScript": {
+        "postDeploymentScript": {
             "type": "string",
             "metadata": {
                 "description": "Azure custom script runs after the VM has been deployed "
@@ -268,7 +268,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": "[parameters('postDeploymentFileUris')]",
-                    "commandToExecute": "[parameters('postDeployShellScript')]"
+                    "commandToExecute": "[parameters('postDeploymentScript')]"
                 }
             }
         }
