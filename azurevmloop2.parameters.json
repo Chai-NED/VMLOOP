@@ -17,6 +17,12 @@
       "OS" : { 
         "value": "CentOS73"
       },
+      "vmNamePrefix" : {
+        "value" : "AkmVmDev"
+      },
+      "NicPrefix" : {
+        "value" : "AkmVmDevNic"
+      },
       "postDeployShellScript" : {
         "value": "touch csefile"
       }
