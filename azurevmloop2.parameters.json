@@ -2,29 +2,50 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "adminUsername": {
-        "value": "chaiadmin"
-      },
-      "adminPassword": {
-        "value": "Patr10ts!123456^"
-      },
-      "numberOfInstances": {
-        "value": 1
-      },
-      "vmSize" : {
-        "value" : "Basic_A2"
-      },
-      "OS" : { 
-        "value": "CentOS73"
-      },
-      "vmNamePrefix" : {
-        "value" : "AkmVmDev"
-      },
-      "NicPrefix" : {
-        "value" : "AkmVmDevNic"
-      },
-      "postDeployShellScript" : {
-        "value": "touch csefile"
-      }
+        "adminUsername": {
+            "value": "chaiadmin"
+        },
+        "adminPassword": {
+            "value": "Patr10ts!123456^"
+        },
+        "numberOfInstances": {
+            "value": 1
+        },
+        "vmSize": {
+            "value": "Basic_A2"
+        },
+        "OS": {
+            "value": "CentOS73"
+        },
+        "vmNamePrefix": {
+            "value": "AkmVmDev"
+        },
+        "NicPrefix": {
+            "value": "AkmVmDevNic"
+        },
+        "postDeployShellScript": {
+            "value": "touch csefile"
+        },
+        "virtualNetworkName": {
+            "value": "myVNET"
+        },
+        "addressPrefix": {
+            "value": "10.0.0.0/16"
+        },
+        "subnet1Name": {
+            "value": "Subnet-1"
+        },
+        "subnet1Prefix": {
+            "value": "10.0.0.0/24"
+        },
+        "ssh_key_data": {
+            "value": ""
+        },
+        "os_disk_storage_type": {
+            "value": "Premium_LRS"
+        },
+        "os_disk_size_gb": {
+            "value": 128
+        }
     }
-  }
+}
