@@ -70,7 +70,13 @@
         "postDeployShellScript": {
             "type": "string",
             "metadata": {
-                "description": "Azure custome script runs after the VM has been deployed "
+                "description": "Azure custom script runs after the VM has been deployed "
+            }
+        },
+        "postDeploymentFileUris": {
+            "type": "string",
+            "metadata": {
+                "description": "GitHub URI where the post script is."
             }
         },
         "virtualNetworkName": {
@@ -261,7 +267,7 @@
                 "typeHandlerVersion": "2.0",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
-                    "fileUris": "[split(parameters('fileUris'), ' ')]",
+                    "fileUris": "[parameters('postDeploymentFileUris')]",
                     "commandToExecute": "[parameters('postDeployShellScript')]"
                 }
             }
