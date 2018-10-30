@@ -48,16 +48,11 @@
             "value": 128
         },
         "fileUris": {
-            "value": "http://example.com/foo.sh http://example.com/bar.py"
+            "value": "https://github.com/Chai-NED/VMLOOP/blob/master/postscript.sh"
         },
         "commandToExecute": {
-            "value": "./foo.sh"
+            "value": "./postscript.sh"
         },
-        "customScriptStorageAccountName": {
-            "value": "GEN-UNIQUE"
-        },
-        "customScriptStorageAccountKey": {
-            "value": "5JH6cPMDYvZZjgEb166KuYh2fQVzNNXPx3lWX1pLYJdaxoa0hJ4+qcdt8hDFR5lajnw57Pz5lBfPdQthFlImTw=="
-        }
+       
     }
 }
