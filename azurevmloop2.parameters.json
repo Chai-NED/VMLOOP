@@ -16,6 +16,9 @@
       },
       "OS" : { 
         "value": "CentOS73"
+      },
+      "postDeployShellScript" : {
+        "value": "touch csefile"
       }
     }
   }
