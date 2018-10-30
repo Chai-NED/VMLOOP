@@ -270,7 +270,7 @@
                     "fileUris": [
                         "parameters('postDeploymentFileUris')"
                     ],
-                    "commandToExecute": "[parameters('postDeploymentScript')]"
+                    "commandToExecute": "parameters('postDeploymentScript')"
                 }
             }
         }
