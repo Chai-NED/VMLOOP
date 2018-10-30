@@ -268,7 +268,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                        "parameters('postDeploymentFileUris')"
+                        "split(parameters('postDeploymentFileUris'), ' ' )"
                     ],
                     "commandToExecute": "parameters('postDeploymentScript')"
                 }
