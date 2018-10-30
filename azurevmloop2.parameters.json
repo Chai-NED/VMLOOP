@@ -23,9 +23,6 @@
         "NicPrefix": {
             "value": "AkmVmDevNic"
         },
-        "postDeployShellScript": {
-            "value": "touch csefile"
-        },
         "virtualNetworkName": {
             "value": "myVNET"
         },
@@ -47,12 +44,11 @@
         "os_disk_size_gb": {
             "value": 128
         },
-        "fileUris": {
+        "postDeploymentFileUris": {
             "value": "https://github.com/Chai-NED/VMLOOP/blob/master/postscript.sh"
         },
-        "commandToExecute": {
-            "value": "./postscript.sh"
-        },
-       
+        "postDeploymentScript": {
+            "value": "sh postscript.sh"
+        }
     }
 }
