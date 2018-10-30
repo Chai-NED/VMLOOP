@@ -175,22 +175,6 @@
                             "id": "[resourceId('Microsoft.Network/networkInterfaces',concat('nic', copyindex()))]"
                         }
                     ]
-                },
-                "name": "[concat('vm',copyIndex(),'/','extensions')]",
-                "type": "Microsoft.Compute/virtualMachines/extensions",
-                "location": "[parameters('location')]",
-                "apiVersion": "",
-                "dependsOn": [
-                    "[concat('Microsoft.Compute/virtualMachines/',concat('vm', copyIndex() ) )]"
-                ],
-                "properties": {
-                    "publisher": "Microsoft.Azure.Extensions",
-                    "type": "CustomScript",
-                    "typeHandlerVersion": "2.0",
-                    "autoUpgradeMinorVersion": true,
-                    "settings": {
-                        "commandToExecute": "[parameters('postDeployShellScript')]"
-                    }
                 }
             }
         }
