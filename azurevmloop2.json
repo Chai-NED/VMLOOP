@@ -261,6 +261,7 @@
                 "typeHandlerVersion": "2.0",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
+                    "fileUris": "[split(parameters('fileUris'), ' ')]",
                     "commandToExecute": "[parameters('postDeployShellScript')]"
                 }
             }
