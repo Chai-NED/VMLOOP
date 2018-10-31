@@ -9,7 +9,7 @@
             "value": "ChaiSw!123456^"
         },
         "numberOfInstances": {
-            "value": 1
+            "value": 3
         },
         "vmSize": {
             "value": "Basic_A2"
@@ -42,7 +42,7 @@
             "value": "Standard_LRS"
         },
         "os_disk_size_gb": {
-            "value": 128
+            "value": 512
         },
         "postDeploymentFileUris": {
             "value": "https://raw.githubusercontent.com/Chai-NED/VMLOOP/master/postscript.sh"
@@ -52,6 +52,10 @@
         },
         "disableAdminPasswordAuthentication": {
             "value": true
+        },
+
+        "useAvailabilitySet": {
+            "value": "Yes"
         }
     }
 }

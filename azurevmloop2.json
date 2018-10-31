@@ -142,6 +142,17 @@
             "metadata": {
                 "description": "Turn on/off password authentication"
             }
+        },
+        "useAvailabilitySet": {
+            "type": "string",
+            "defaultValue": "Yes",
+            "allowedValues": [
+                "Yes",
+                "No"
+            ],
+            "metadata": {
+                "description": "This will deploy VM into availability set"
+            }
         }
     },
     "variables": {
@@ -171,9 +182,24 @@
             "version": "latest"
         },
         "imageReference": "[variables(parameters('OS'))]",
-        "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]"
+        "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
+        "availabilitySetName": "[concat(parameters('vmNamePrefix'), 'AvSet')]"
     },
     "resources": [
+        {
+            "condition": "[equals(parameters('useAvailabilitySet'), 'Yes')]",
+            "name": "[variables('availabilitySetName')]",
+            "type": "Microsoft.Compute/availabilitySets",
+            "apiVersion": "2018-06-01",
+            "location": "[parameters('location')]",
+            "properties": {
+                "platformUpdateDomainCount": 2,
+                "platformFaultDomainCount": 3
+            },
+            "sku": {
+                "name": "Aligned"
+            }
+        },
         {
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[parameters('virtualNetworkName')]",
@@ -234,6 +260,9 @@
                 "nicLoop"
             ],
             "properties": {
+                "availabilitySet": {
+                    "id": "[if(equals(parameters('useAvailabilitySet'),'Yes'),resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName')) , json('null'))]"
+                },
                 "hardwareProfile": {
                     "vmSize": "[parameters('vmSize')]"
                 },
