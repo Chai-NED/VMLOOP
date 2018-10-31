@@ -1,0 +1,35 @@
+$schema: http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#
+contentVersion: 1.0.0.0
+parameters:
+  adminUsername:
+    value: chaiadmin
+  adminPassword:
+    value: ChaiSw!123456^
+  numberOfInstances:
+    value: 4
+  vmSize:
+    value: Basic_A2
+  OS:
+    value: CentOS73
+  vmNamePrefix:
+    value: AkmVmDev
+  NicPrefix:
+    value: AkmVmDevNic
+  virtualNetworkName:
+    value: myVNET
+  addressPrefix:
+    value: 10.0.0.0/16
+  subnet1Name:
+    value: Subnet-1
+  subnet1Prefix:
+    value: 10.0.0.0/24
+  ssh_key_data:
+    value: ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEApnHippr2d20nhSCPGFaWiEccVBbQrFPsDjhv52DFO6RHBz70TivZx4XEOQhYvY5odMTUXHbnCr0gvTGTJQ49q5l7Bgyh2x3WZQvcbWbObOqu27dxO2VP4NjKPnlctdPXfnmsOs3dVMxsPS3jEGWIzHZOIEmfDdhXqDM9MAfAcEN2pLCVGliHfl8ZpAjXOcHNHxT3PDpK9SF1vt49qFyHOoBlPXQG4KRsSg/EoYd889i6YCAt+pAfCS14bsWVQSlHNtnJkL45MdXC8FfguNEdDiA70v/WIXGruOni9Y0TRBhPEfVLRwbUQ4upC2HP3A8g03myS8FIw8cAuFrTow1EpQ== rsa-key-20181030
+  os_disk_storage_type:
+    value: Standard_LRS
+  os_disk_size_gb:
+    value: 128
+  postDeploymentFileUris:
+    value: https://raw.githubusercontent.com/Chai-NED/VMLOOP/master/postscript.sh
+  postDeploymentScript:
+    value: postscript.sh
