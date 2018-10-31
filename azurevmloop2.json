@@ -266,13 +266,16 @@
                 "type": "CustomScript",
                 "typeHandlerVersion": "2.0",
                 "autoUpgradeMinorVersion": true,
-                "settings": {
+                "Settings": {
+                    "commandToExecute": "parameters('postDeploymentScript')",
                     "fileUris": [
-                        "split(parameters('postDeploymentFileUris'), ' ' )"
-                    ],
-                    "commandToExecute": "parameters('postDeploymentScript')"
+                        "[parameters('postDeploymentFileUris')]"
+                    ]
                 }
             }
         }
-    ]
+    ],
+    "outputs": {
+      
+    }
 }
