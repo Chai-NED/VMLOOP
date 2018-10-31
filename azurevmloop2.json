@@ -270,7 +270,7 @@
                     "fileUris": [
                         "[parameters('postDeploymentFileUris')]"
                     ],
-                    "commandToExecute": "sh postscript.sh"
+                    "commandToExecute": "[concat('sh ', parameters('postDeploymentScript')) ]"
                 }
             }
         }
