@@ -25,7 +25,7 @@
         },
         "OS": {
             "type": "string",
-            "defaultValue": "Ubuntu1604",
+            "defaultValue": "Ubuntu1804",
             "allowedValues": [
                 "Ubuntu1604",
                 "Ubuntu1804",

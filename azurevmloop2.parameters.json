@@ -15,7 +15,7 @@
             "value": "Basic_A2"
         },
         "OS": {
-            "value": "CentOS73"
+            "value": "Ubuntu1804"
         },
         "vmNamePrefix": {
             "value": "AkmVmDev"
@@ -42,7 +42,7 @@
             "value": "Standard_LRS"
         },
         "os_disk_size_gb": {
-            "value": 512
+            "value": 256
         },
         "postDeploymentFileUris": {
             "value": "https://raw.githubusercontent.com/Chai-NED/VMLOOP/master/postscript.sh"
