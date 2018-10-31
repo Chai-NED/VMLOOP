@@ -48,7 +48,7 @@
             "value": "https://raw.githubusercontent.com/Chai-NED/VMLOOP/master/postscript.sh"
         },
         "postDeploymentScript": {
-            "value": "postscript.sh"
+            "value": "sh postscript.sh"
         }
     }
 }

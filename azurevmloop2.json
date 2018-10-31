@@ -68,7 +68,7 @@
             }
         },
         "postDeploymentScript": {
-            "type": "string",
+            "type": "securestring",
             "metadata": {
                 "description": "Azure custom script runs after the VM has been deployed "
             }
@@ -255,7 +255,7 @@
                 "count": "[parameters('numberOfInstances')]"
             },
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(parameters('vmNamePrefix'),CopyIndex(),'/','extensions')]",
+            "name": "[concat(parameters('vmNamePrefix'),CopyIndex(),'/','CustomScriptForLinux')]",
             "apiVersion": "2017-03-30",
             "location": "[parameters('location')]",
             "dependsOn": [
@@ -266,16 +266,14 @@
                 "type": "CustomScript",
                 "typeHandlerVersion": "2.0",
                 "autoUpgradeMinorVersion": true,
-                "Settings": {
-                    "commandToExecute": "parameters('postDeploymentScript')",
+                "protectedSettings": {
                     "fileUris": [
                         "[parameters('postDeploymentFileUris')]"
-                    ]
+                    ],
+                    "commandToExecute": "sh postscript.sh"
                 }
             }
         }
     ],
-    "outputs": {
-      
-    }
+    "outputs": {}
 }
