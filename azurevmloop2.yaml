@@ -18,7 +18,7 @@ parameters:
       description: Number of VMs to deploy, limit 10 for now
   OS:
     type: string
-    defaultValue: Ubuntu1604
+    defaultValue: Ubuntu1804
     allowedValues:
     - Ubuntu1604
     - Ubuntu1804
@@ -72,7 +72,7 @@ parameters:
     type: string
     metadata:
       description: CIDR for subnet to be used/created where the VM will be deployed
-  ssh_key_data:
+  sshKeyData:
     type: securestring
     metadata:
       displayName: SSH public key string
@@ -94,17 +94,33 @@ parameters:
     metadata:
       displayName: OS disk size
       description: OS disk size in GB
+  disableAdminPasswordAuthentication:
+    type: bool
+    defaultValue: true
+    allowedValues:
+    - true
+    - false
+    metadata:
+      description: Turn on/off password authentication
+  useAvailabilitySet:
+    type: string
+    defaultValue: Yes
+    allowedValues:
+    - Yes
+    - No
+    metadata:
+      description: This will deploy VM into availability set
 variables:
   subnet1Ref: "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('virtualNetworkName'),parameters('subnet1Name'))]"
   Ubuntu1604:
     publisher: Canonical
     offer: UbuntuServer
-    sku: 16.04.0-LTS
+    sku: 16.04-LTS
     version: latest
   Ubuntu1804:
     publisher: Canonical
     offer: UbuntuServer
-    sku: 18.04.0-LTS
+    sku: 18.04-LTS
     version: latest
   CentOS73:
     publisher: OpenLogic
@@ -117,7 +133,19 @@ variables:
     sku: 7.5
     version: latest
   imageReference: "[variables(parameters('OS'))]"
+  sshKeyPath: "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]"
+  availabilitySetName: "[concat(parameters('vmNamePrefix'), 'AvSet')]"
 resources:
+- condition: "[equals(parameters('useAvailabilitySet'), 'Yes')]"
+  name: "[variables('availabilitySetName')]"
+  type: Microsoft.Compute/availabilitySets
+  apiVersion: 2018-06-01
+  location: "[parameters('location')]"
+  properties:
+    platformUpdateDomainCount: 2
+    platformFaultDomainCount: 3
+  sku:
+    name: Aligned
 - type: Microsoft.Network/virtualNetworks
   name: "[parameters('virtualNetworkName')]"
   apiVersion: 2016-03-30
@@ -156,12 +184,20 @@ resources:
   dependsOn:
   - nicLoop
   properties:
+    availabilitySet:
+      id: "[if(equals(parameters('useAvailabilitySet'),'Yes'),resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName')) , json('null'))]"
     hardwareProfile:
       vmSize: "[parameters('vmSize')]"
     osProfile:
       computerName: "[concat('vm', copyIndex())]"
       adminUsername: "[parameters('adminUsername')]"
       adminPassword: "[parameters('adminPassword')]"
+      linuxConfiguration:
+        disablePasswordAuthentication: "[parameters('disableAdminPasswordAuthentication')]"
+        ssh:
+          publicKeys:
+          - path: "[variables('sshKeyPath')]"
+            keyData: "[parameters('sshKeyData')]"
     storageProfile:
       imageReference: "[variables('imageReference')]"
       osDisk:

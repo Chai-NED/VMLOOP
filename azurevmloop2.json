@@ -48,8 +48,7 @@
             "defaultValue": "Basic_A2",
             "allowedValues": [
                 "Basic_A2",
-                "Standard_DS15_v2",
-                "Standard_E64is_v3"
+                "Standard_D8_v3"
             ],
             "metadata": {
                 "description": "Allowed SKUs"
