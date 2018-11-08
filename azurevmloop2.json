@@ -312,6 +312,7 @@
                 "type": "CustomScript",
                 "typeHandlerVersion": "2.0",
                 "autoUpgradeMinorVersion": true,
+                "settings": {},
                 "protectedSettings": {
                     "fileUris": [
                         "[parameters('postDeploymentFileUris')]"
