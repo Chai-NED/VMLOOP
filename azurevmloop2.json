@@ -60,12 +60,6 @@
                 "description": "Prefix for name of VMs. Must be unique for each deployment"
             }
         },
-        "NicPrefix": {
-            "type": "string",
-            "metadata": {
-                "description": "Prefix for NIC. Must be unique for each deployment"
-            }
-        },
         "postDeploymentScript": {
             "type": "securestring",
             "metadata": {
@@ -182,7 +176,8 @@
         },
         "imageReference": "[variables(parameters('OS'))]",
         "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
-        "availabilitySetName": "[concat(parameters('vmNamePrefix'), 'AvSet')]"
+        "availabilitySetName": "[concat(parameters('vmNamePrefix'), 'AvSet')]",
+        "NicPrefix": "[concat(parameters('vmNamePrefix'),'Nic')]"
     },
     "resources": [
         {
@@ -222,7 +217,7 @@
         },
         {
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[concat(parameters('NicPrefix'), copyindex())]",
+            "name": "[concat(variables('NicPrefix'), copyindex())]",
             "apiVersion": "2016-03-30",
             "location": "[parameters('location')]",
             "copy": {
@@ -294,7 +289,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('NicPrefix'), copyindex()))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('NicPrefix'), copyindex()))]"
                         }
                     ]
                 }
