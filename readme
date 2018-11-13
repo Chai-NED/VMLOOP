@@ -6,9 +6,9 @@ Remember
 1. Download Azure CLI
 2. Create a resource group first. You can use the Azure portal to do that.
 3. If you modify the template or paramfile, it is a good idea to validate it.
-   C:>\ az group deployment validate -g akmpocrg --template-file .\azurevmloop2.json --parameters .\azurevmloop2.parameters.json
+   C:>\ az group deployment validate -g pocrg --template-file .\vmloop.json --parameters .\mesos.parameters.json
 
 To create the VM
 ================
 
-C::>\az group deployment create --name AkmDeploy1 -g akmpocrg --template-file .\azurevmloop2.json --parameters .\azurevmloop2.parameters.json
+C::>\az group deployment create --name Deploy1 -g pocrg --template-file .\vmloop.json --parameters .\mesos.parameters.json
