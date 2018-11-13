@@ -1,4 +1,6 @@
-The JSON template can be used to create multiple Linux VMs. It has been tested with Azure CLI up to 5 VMs. The numberOfInstances parameter in the parameter file dictates how many VMs will be created.
+The JSON template can be used to create multiple Linux VMs. It has been tested with Azure CLI up to 5 VMs.
+The numberOfInstances parameter in the parameter file dictates how many VMs will be created.
+The sshKeyData contains a RSA public key that must be modified based on your priv/pub key pair. 
 
 Remember
 ========
