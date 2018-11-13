@@ -18,7 +18,7 @@
             "value": "Ubuntu1804"
         },
         "vmNamePrefix": {
-            "value": "AkmVmDev"
+            "value": "Mesos"
         },
         "virtualNetworkName": {
             "value": "myVNET"
@@ -27,10 +27,10 @@
             "value": "10.0.0.0/16"
         },
         "subnet1Name": {
-            "value": "Subnet-1"
+            "value": "MesosSubnet"
         },
         "subnet1Prefix": {
-            "value": "10.0.0.0/24"
+            "value": "10.0.11.0/24"
         },
         "sshKeyData": {
             "value": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEApnHippr2d20nhSCPGFaWiEccVBbQrFPsDjhv52DFO6RHBz70TivZx4XEOQhYvY5odMTUXHbnCr0gvTGTJQ49q5l7Bgyh2x3WZQvcbWbObOqu27dxO2VP4NjKPnlctdPXfnmsOs3dVMxsPS3jEGWIzHZOIEmfDdhXqDM9MAfAcEN2pLCVGliHfl8ZpAjXOcHNHxT3PDpK9SF1vt49qFyHOoBlPXQG4KRsSg/EoYd889i6YCAt+pAfCS14bsWVQSlHNtnJkL45MdXC8FfguNEdDiA70v/WIXGruOni9Y0TRBhPEfVLRwbUQ4upC2HP3A8g03myS8FIw8cAuFrTow1EpQ== rsa-key-20181030"
