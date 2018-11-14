@@ -45,7 +45,7 @@
             "value": true
         },
         "useAvailabilitySet": {
-            "value": "no"
+            "value": "Yes"
         },
         "dnsPrefix" : {
             "value": "chaiha"
