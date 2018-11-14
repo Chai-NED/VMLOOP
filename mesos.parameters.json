@@ -12,7 +12,7 @@
             "value": 1
         },
         "vmSize": {
-            "value": "Basic_A2"
+            "value": "Standard_D2_v2"
         },
         "OS": {
             "value": "Ubuntu1804"

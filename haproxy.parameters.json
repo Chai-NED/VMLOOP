@@ -12,7 +12,7 @@
             "value": 1
         },
         "vmSize": {
-            "value": "Basic_A2"
+            "value": "Standard_D2_v2"
         },
         "OS": {
             "value": "Ubuntu1804"
@@ -36,7 +36,7 @@
             "value": 256
         },
         "postDeploymentFileUris": {
-            "value": "https://raw.githubusercontent.com/Chai-NED/VMLOOP/master/haporxyinstall.sh"
+            "value": "https://raw.githubusercontent.com/Chai-NED/VMLOOP/master/haproxyinstall.sh"
         },
         "postDeploymentScript": {
             "value": "haproxyinstall.sh"
@@ -47,7 +47,7 @@
         "useAvailabilitySet": {
             "value": "Yes"
         },
-        "dnsPrefix" : {
+        "dnsPrefix": {
             "value": "chaiha"
         }
     }

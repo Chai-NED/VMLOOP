@@ -45,9 +45,9 @@
         },
         "vmSize": {
             "type": "string",
-            "defaultValue": "Basic_A2",
+            "defaultValue": "Standard_D2_v2",
             "allowedValues": [
-                "Basic_A2",
+                "Standard_D2_v2",
                 "Standard_D8_v3"
             ],
             "metadata": {
@@ -193,10 +193,9 @@
                 "name": "nicLoop",
                 "count": "[parameters('numberOfInstances')]"
             },
-            "dependsOn": [
-                "[variables('vnetId')]"
-            ],
+        
             "properties": {
+                "enableAcceleratedNetworking": true,
                 "ipConfigurations": [
                     {
                         "name": "ipconfig1",
