@@ -1,0 +1,24 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworkName": {
+            "value": "myVNET"
+        },
+        "vnetAddressPrefix": {
+            "value": "10.0.0.0/16"
+        },
+        "subnet1Name": {
+            "value": "HaProxySubnet"
+        },
+        "subnet1Prefix": {
+            "value": "10.0.10.0/24"
+        },
+        "subnet2Name": {
+            "value": "MesosSubnet"
+        },
+        "subnet2Prefix": {
+            "value": "10.0.11.0/24"
+        }
+    }
+}

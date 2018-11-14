@@ -75,25 +75,13 @@
         "virtualNetworkName": {
             "type": "string",
             "metadata": {
-                "description": "Name of the virtual network"
-            }
-        },
-        "addressPrefix": {
-            "type": "string",
-            "metadata": {
-                "description": "CIDR for VNET"
+                "description": "Name of the existing virtual network"
             }
         },
         "subnet1Name": {
             "type": "string",
             "metadata": {
-                "description": "Subnet to be used/created where the VM will be deployed"
-            }
-        },
-        "subnet1Prefix": {
-            "type": "string",
-            "metadata": {
-                "description": "CIDR for subnet to be used/created where the VM will be deployed"
+                "description": "exiting subnet to be used/created where the VM will be deployed"
             }
         },
         "sshKeyData": {
@@ -149,7 +137,8 @@
         }
     },
     "variables": {
-        "subnet1Ref": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('virtualNetworkName'),parameters('subnet1Name'))]",
+        "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+        "subnet1Ref": "[concat(variables('vnetId'), '/subnets/', parameters('subnet1Name'))]",
         "Ubuntu1604": {
             "publisher": "Canonical",
             "offer": "UbuntuServer",
@@ -195,37 +184,16 @@
             }
         },
         {
-            "type": "Microsoft.Network/virtualNetworks",
-            "name": "[parameters('virtualNetworkName')]",
-            "apiVersion": "2016-03-30",
-            "location": "[parameters('location')]",
-            "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "[parameters('addressPrefix')]"
-                    ]
-                },
-                "subnets": [
-                    {
-                        "name": "[parameters('subnet1Name')]",
-                        "properties": {
-                            "addressPrefix": "[parameters('subnet1Prefix')]"
-                        }
-                    }
-                ]
-            }
-        },
-        {
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[concat(variables('NicPrefix'), copyindex())]",
-            "apiVersion": "2016-03-30",
+            "apiVersion": "2018-08-01",
             "location": "[parameters('location')]",
             "copy": {
                 "name": "nicLoop",
                 "count": "[parameters('numberOfInstances')]"
             },
             "dependsOn": [
-                "[parameters('virtualNetworkName')]"
+                "[variables('vnetId')]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -244,7 +212,7 @@
         {
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[concat(parameters('vmNamePrefix') ,copyIndex()) ]",
-            "apiVersion": "2016-04-30-preview",
+            "apiVersion": "2017-03-30",
             "location": "[parameters('location')]",
             "copy": {
                 "name": "virtualMachineLoop",
