@@ -173,7 +173,7 @@
         "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
         "availabilitySetName": "[concat(parameters('vmNamePrefix'), 'AvSet')]",
         "NicPrefix": "[concat(parameters('vmNamePrefix'),'Nic')]",
-        "pipName": "[concat(parameters('vmName'), '-pip')]",
+        "pipName": "[concat(parameters('vmNamePrefix'), '-pip')]",
         "pipType": "Static",
         "pipObject": {
             "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('pipName'))]"
