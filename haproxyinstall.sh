@@ -7,13 +7,7 @@
 # 
 apt-get update
 
-#Install stable release of HAProxy1.8
+#Install stable release of HAProxy1.8 and it should run automatically by default
 apt-get install -y haproxy=1.8.\*
 
- # Enable haproxy (to be started during boot)
-tmpf=`mktemp` && mv /etc/default/haproxy $tmpf && sed -e "s/ENABLED=0/ENABLED=1/" $tmpf > /etc/default/haproxy && chmod --reference $tmpf /etc/default/haproxy
-
-
-# Start the proxy servie
- service haproxy start
-
+ 

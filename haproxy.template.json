@@ -134,6 +134,12 @@
             "metadata": {
                 "description": "This will deploy VM into availability set"
             }
+        },
+        "dnsPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "DNS prefix for external DNS name"
+            }
         }
     },
     "variables": {
@@ -166,7 +172,12 @@
         "imageReference": "[variables(parameters('OS'))]",
         "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
         "availabilitySetName": "[concat(parameters('vmNamePrefix'), 'AvSet')]",
-        "NicPrefix": "[concat(parameters('vmNamePrefix'),'Nic')]"
+        "NicPrefix": "[concat(parameters('vmNamePrefix'),'Nic')]",
+        "pipName": "[concat(parameters('vmName'), '-pip')]",
+        "pipType": "Static",
+        "pipObject": {
+            "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('pipName'))]"
+        }
     },
     "resources": [
         {
@@ -184,6 +195,18 @@
             }
         },
         {
+            "name": "[variables('pipName')]",
+            "apiVersion": "2017-06-01",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "[variables('pipType')]",
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('dnsPrefix')]"
+                }
+            }
+        },
+        {
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[concat(variables('NicPrefix'), copyindex())]",
             "apiVersion": "2018-08-01",
@@ -193,7 +216,8 @@
                 "count": "[parameters('numberOfInstances')]"
             },
             "dependsOn": [
-                "[variables('vnetId')]"
+                "[variables('vnetId')]",
+                "[resourceId('Microsoft.Network/publicIPAddresses/', variables('pipName'))]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -201,6 +225,7 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": "[ variables('pipObject')]",
                             "subnet": {
                                 "id": "[variables('subnet1Ref')]"
                             }
