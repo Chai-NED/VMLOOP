@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "eastus"
+        },
+        "existingVirtualNetworkResourceGroupName": {
+            "value": "akmpocrg"
+        },
+        "existingVirtualNetworkName": {
+            "value": "myVNET"
+        },
+        "existingSubnetName": {
+            "value": "haProxySubnet"
+        },
+        "newNsgName": {
+            "value": "haProxyNsg"
+        },
+        "allowedInboundIPs": {
+            "value": [
+                "124.112.215.0/24",
+                "120.14.22.0/24"
+            ]
+        },
+        "allowedInboundPort": {
+            "value": "443"
+        }
+    }
+}
