@@ -76,7 +76,15 @@
                         "[parameters('virtualNetworkName')]"
                     ],
                     "properties": {
-                        "addressPrefix": "[parameters('subnet1Prefix')]"
+                        "addressPrefix": "[parameters('subnet1Prefix')]",
+                        "serviceEndpoints": [
+                            {
+                                "service": "Microsoft.Storage",
+                                "locations": [
+                                    "[parameters('location')]"
+                                ]
+                            }
+                        ]
                     }
                 },
                 {
@@ -88,7 +96,15 @@
                         "[parameters('virtualNetworkName')]"
                     ],
                     "properties": {
-                        "addressPrefix": "[parameters('subnet2Prefix')]"
+                        "addressPrefix": "[parameters('subnet2Prefix')]",
+                        "serviceEndpoints": [
+                            {
+                                "service": "Microsoft.Storage",
+                                "locations": [
+                                    "[parameters('location')]"
+                                ]
+                            }
+                        ]
                     }
                 }
             ]
