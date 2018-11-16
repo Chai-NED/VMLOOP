@@ -1,0 +1,113 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the Azure Storage account. lowercase only"
+            }
+        },
+        "blobContainerNames": {
+            "type": "array",
+            "metadata": {
+                "description": "The name of the blob containers. lowercase only"
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "The location in which the Azure Storage resources should be deployed."
+            }
+        },
+        "externalSourceIp": {
+            "type": "string",
+            "metadata": {
+                "displayName": "External source IP to which to grant access",
+                "description": "External source IP to which to grant access"
+            }
+        },
+        "virtualNetworkName": {
+            "type": "string",
+            "metadata": {
+                "displayName": "VNet to which access is limited with service endpoint",
+                "description": "VNet to which access is limited with service endpoint"
+            }
+        },
+        "subnetNames": {
+            "type": "array",
+            "metadata": {
+                "displayName": "Subnet names in the VNet to which to grant access",
+                "description": "Subnet names in the VNet to which to grant access"
+            }
+        }
+    },
+    "variables": {
+        "storageApiVersion": "2018-02-01",
+        "storageKind": "StorageV2"
+    },
+    "resources": [
+        {
+            "name": "[parameters('storageAccountName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "location": "[parameters('location')]",
+            "kind": "[variables('storageKind')]",
+            "apiVersion": "[variables('storageApiVersion')]",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "accessTier": "Hot",
+                "supportsHttpsTrafficOnly": true,
+                "networkAcls": {
+                    "bypass": "AzureServices,Logging,Metrics",
+                    "copy": [
+                        {
+                            "name": "virtualNetworkRules",
+                            "count": "[length(parameters('subnetNames'))]",
+                            "input": {
+                                "id": "[resourceid('Microsoft.Network/virtualNetworks/subnets',parameters('virtualNetworkName'), parameters('subNetNames')[copyIndex('virtualNetworkRules')])]",
+                                "action": "Allow"
+                            }
+                        }
+                    ],
+                    "ipRules": [
+                        {
+                            "value": "[parameters('externalSourceIp')]",
+                            "action": "Allow"
+                        }
+                    ],
+                    "defaultAction": "Deny"
+                },
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "name": "[concat(parameters('storageAccountName'),'/default/',parameters('blobContainerNames')[copyIndex()])]",
+            "apiVersion": "[variables('storageApiVersion')]",
+            "properties": {
+                "publicAccess": "None"
+            },
+            "dependsOn": [
+                "[parameters('storageAccountName')]"
+            ],
+            "copy": {
+                "name": "blobContainerloop",
+                "count": "[length(parameters('blobContainerNames'))]"
+            }
+        }
+    ]
+}
