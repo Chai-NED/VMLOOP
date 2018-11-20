@@ -32,13 +32,14 @@ mountScriptPath="/home/$vmAdmin/mount.sh"
 sudo wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb 
 sudo dpkg -i packages-microsoft-prod.deb 
 sudo apt-get update -y  
-sudo apt-get upgrade -y -qq 
+sudo apt-get -y upgrade  -qq 
 
 # Install blobfuse. Default on Ubuntu is /usr/bin
 sudo apt-get install -y blobfuse fuse 
 
-sudo apt-get update -y
-sudo apt-get upgrade -y -qq 
+
+#sudo apt-get update -y
+#sudo apt-get -y upgrade -qq 
 sudo mkdir  $blobFuseTempPath  
 sudo chown  $vmAdmin  $blobFuseTempPath
 
