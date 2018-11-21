@@ -1,4 +1,9 @@
 #!/bin/sh
+
+#Debug 
+exec > /tmp/logcse 2>&1
+set -x
+
 touch /tmp/postscript.out
 
 echo $1 $2 $3>> /tmp/postscript.out
@@ -33,11 +38,9 @@ sudo apt-get install -y blobfuse fuse
 
 sudo apt-get update -y
 sudo apt-get upgrade -y 
-sudo mkdir  $blobFuseTempPath  
-sudo chown  $vmAdmin  $blobFuseTempPath
 
-# Clean up blobfuse config temp files
-rm $tmpblobFuseConfig
+sudo mkdir -p $blobFuseTempPath  
+sudo chown  $vmAdmin  $blobFuseTempPath
 
 
 # Build blobfuse config file
