@@ -42,7 +42,7 @@ rm $tmpblobFuseConfig
 
 # Build blobfuse config file
 blobFuseConfigContent="$blobFuseConfigContentPrefix\ncontainerName log"
-echo -e  $blobFuseConfigContent >> $tmpBlobFuseConfig
+echo -e  $blobFuseConfigContent > $tmpBlobFuseConfig
 sudo cp $tmpblobFuseConfig $blobFuseConfigPath   
 sudo chmod 700  $blobFuseConfigPath
 
@@ -54,7 +54,7 @@ sudo /usr/bin/blobfuse  $linuxMountPointLog  --tmp-path=$blobFuseTempPath  --con
 # Persist blobfuse mountpount after a reboot. For that, you have to crate a mount.sh in home dir and use it in fstab
 #	
 # Generate mount.sh on the fly. 
-echo "/usr/bin/blobfuse $linuxMountPointLog  --tmp-path=$blobFuseTempPath  --config-file=$blobFuseConfigPath  -o allow_other -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120 --file-cache-timeout-in-seconds=120 --log-level=LOG_DEBUG" >> $mountScriptPath
+echo "/usr/bin/blobfuse $linuxMountPointLog  --tmp-path=$blobFuseTempPath  --config-file=$blobFuseConfigPath  -o allow_other -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120 --file-cache-timeout-in-seconds=120 --log-level=LOG_DEBUG" > $mountScriptPath
 chmod +x $mountScriptPath
       
 # Add a line to fstab  
