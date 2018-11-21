@@ -37,7 +37,9 @@ mountScriptPath="/home/$vmAdmin/mount.sh"
 sudo apt-get install -y blobfuse fuse 
 
 sudo apt-get update -y
-sudo apt-get upgrade -y 
+sudo dpkg --configure -a
+#sudo apt-get upgrade -y 
+sudo apt-get --yes  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
 sudo mkdir -p $blobFuseTempPath  
 sudo chown  $vmAdmin  $blobFuseTempPath
