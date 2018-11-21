@@ -9,7 +9,7 @@ storageAccountName=$2
 storageAccountKey=$3
 
 linuxMountPointLog="/mnt/azure/log" 
-tmpBlobFuseConfig="./blobfuse_tmp.cfg"
+tmpBlobFuseConfig="/home/$vmAdmin/blobfuse_tmp.cfg"
 blobFuseConfigPath="/etc/blobfuse_azureblob.cfg"
 blobFuseConfigContentPrefix="accountName  $storageAccountName\naccountKey $storageAccountKey"
 blobFuseTempPath="/mnt/blobfusetmp"
