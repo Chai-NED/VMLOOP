@@ -47,7 +47,7 @@ sudo chown  $vmAdmin  $blobFuseTempPath
 
 # Build blobfuse config file
 blobFuseConfigContent="$blobFuseConfigContentPrefix\ncontainerName log"
-echo -e  $blobFuseConfigContent > $tmpBlobFuseConfig
+echo $blobFuseConfigContent > $tmpBlobFuseConfig
 sudo cp $tmpBlobFuseConfig $blobFuseConfigPath   
 sudo chmod 700  $blobFuseConfigPath
 
