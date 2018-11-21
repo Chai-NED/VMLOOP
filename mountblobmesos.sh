@@ -1,5 +1,15 @@
 #!/bin/sh
 
+#
+# The Azure Custom Script Extension will execute this script after a VM has been created by a template. It requires
+# three arguments to be passed in from your template.
+# 
+# 1. VM admin name
+# 2. Existing storage account name
+# 3. Storage account key from #3
+#
+
+
 #Debug 
 exec > /tmp/logcse 2>&1
 set -x

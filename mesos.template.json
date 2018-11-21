@@ -78,7 +78,6 @@
                 "description": "Name of the exiting virtual network"
             }
         },
-    
         "subnet1Name": {
             "type": "string",
             "metadata": {
@@ -135,6 +134,12 @@
             "metadata": {
                 "description": "This will deploy VM into availability set"
             }
+        },
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Existing stroage account name"
+            }
         }
     },
     "variables": {
@@ -167,7 +172,9 @@
         "imageReference": "[variables(parameters('OS'))]",
         "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
         "availabilitySetName": "[concat(parameters('vmNamePrefix'), 'AvSet')]",
-        "NicPrefix": "[concat(parameters('vmNamePrefix'),'Nic')]"
+        "NicPrefix": "[concat(parameters('vmNamePrefix'),'Nic')]",
+        "storageAccountRef": "[concat ('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
+        "storageApiVersion": "[providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]]"
     },
     "resources": [
         {
@@ -193,7 +200,6 @@
                 "name": "nicLoop",
                 "count": "[parameters('numberOfInstances')]"
             },
-        
             "properties": {
                 "enableAcceleratedNetworking": true,
                 "ipConfigurations": [
@@ -285,10 +291,15 @@
                     "fileUris": [
                         "[parameters('postDeploymentFileUris')]"
                     ],
-                    "commandToExecute": "[concat('sh ', parameters('postDeploymentScript')) ]"
+                    "commandToExecute": "[concat('sh ', parameters('postDeploymentScript'), ' ', parameters('adminUsername'),' ',parameters('storageAccountName'),' ', listKeys( variables('storageAccountRef'), variables('storageApiVersion')).keys[0].value) ]"
                 }
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "storageAcccountKey": {
+            "type": "string",
+            "value": "[listKeys( variables('storageAccountRef'), variables('storageApiVersion')).keys[0].value]"
+        }
+    }
 }

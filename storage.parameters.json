@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "storageAccountName": {
-            "value": "msaw"
+            "value": "chaisa1"
         },
         "virtualNetworkName": {
             "value": "myVNet"
@@ -17,8 +17,8 @@
         "blobContainerNames": {
             "value": [
                 "log",
-                "slave1",
-                "slave2"
+                "share1",
+                "share2"
             ]
         },
         "externalSourceIp": {
