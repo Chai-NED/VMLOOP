@@ -36,10 +36,10 @@ mountScriptPath="/home/$vmAdmin/mount.sh"
 # Install blobfuse. Default on Ubuntu is /usr/bin
 sudo apt-get install -y blobfuse fuse 
 
-sudo apt-get update -y
-sudo dpkg --configure -a
+#sudo apt-get update -y
+#sudo dpkg --configure -a
 #sudo apt-get upgrade -y 
-sudo apt-get --yes  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+#sudo apt-get --yes  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
 sudo mkdir -p $blobFuseTempPath  
 sudo chown  $vmAdmin  $blobFuseTempPath
@@ -47,7 +47,7 @@ sudo chown  $vmAdmin  $blobFuseTempPath
 
 # Build blobfuse config file
 blobFuseConfigContent="$blobFuseConfigContentPrefix\ncontainerName log"
-echo -e  $blobFuseConfigContent > $tmpBlobFuseConfig
+echo -e  "$blobFuseConfigContent" > $tmpBlobFuseConfig
 sudo cp $tmpBlobFuseConfig $blobFuseConfigPath   
 sudo chmod 700  $blobFuseConfigPath
 
