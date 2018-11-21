@@ -48,7 +48,7 @@ sudo chown  $vmAdmin  $blobFuseTempPath
 # Build blobfuse config file
 blobFuseConfigContent="$blobFuseConfigContentPrefix\ncontainerName log"
 echo -e  $blobFuseConfigContent > $tmpBlobFuseConfig
-sudo cp $tmpblobFuseConfig $blobFuseConfigPath   
+sudo cp $tmpBlobFuseConfig $blobFuseConfigPath   
 sudo chmod 700  $blobFuseConfigPath
 
 # Create a mountpoint and mount blob on it
