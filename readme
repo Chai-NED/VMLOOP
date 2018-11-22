@@ -10,7 +10,39 @@ Remember
 3. If you modify the template or paramfile, it is a good idea to validate it.
    C:>\ az group deployment validate -g pocrg --template-file .\mesos.template.json --parameters .\mesos.parameters.json
 
-To create Mesos VM
-====================
 
-C::>\az group deployment create --name Deploy1 -g pocrg --template-file .\mesos.template.json --parameters .\mesos.parameters.json
+
+These templates must be deployed in the following order
+
+1. Create virtual network and subnets
+======================================
+
+C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\network.template.json --parameters .\network.parameters.json
+
+
+2. Apply IP ACL to subnets
+===========================
+
+C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\ipaclforexternallb.template.json --parameters .\ipaclforexternallb.parameters.json
+
+
+3. Create storage
+=================
+
+C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\storage.template.json --parameters .\storage.parameters.json
+
+4. Create bastion VM
+=====================
+
+C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\bastion.template.json --parameters .\bastion.parameters.json
+
+
+5. Create haproxy VM
+=====================
+C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\haproxy.template.json --parameters .\haproxy.parameters.json
+
+
+6. create Mesos VM
+==================
+
+C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\mesos.template.json --parameters .\mesos.parameters.json
