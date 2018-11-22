@@ -66,7 +66,7 @@ sudo /usr/bin/blobfuse  $linuxMountPoint/$index  --tmp-path=$blobFuseTempPath  -
 # Persist blobfuse mountpount after a reboot. For that, you have to crate a mount.sh in home dir and use it in fstab
 #	
 # Generate three mount.sh files on the fly. 
-echo "/usr/bin/blobfuse $linuxMountPoint/$index  --tmp-path=$blobFuseTempPath  --config-file=$blobFuseConfigPath  -o allow_other -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120 --file-cache-timeout-in-seconds=120 --log-level=LOG_DEBUG" > $mountScriptPath.$index
+echo "/usr/bin/blobfuse $linuxMountPoint/$index  --tmp-path=$blobFuseTempPath  --config-file=$blobFuseConfigPath.$index  -o allow_other -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120 --file-cache-timeout-in-seconds=120 --log-level=LOG_DEBUG" > $mountScriptPath.$index
 chmod +x $mountScriptPath.$index
       
 # Add each line  to fstab  
