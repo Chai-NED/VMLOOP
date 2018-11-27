@@ -1,0 +1,55 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adminUsername": {
+            "value": "chaiadmin"
+        },
+        "adminPassword": {
+            "value": "ChaiSw123456^"
+        },
+        "numberOfInstances": {
+            "value": 1
+        },
+        "vmSize": {
+            "value": "Standard_D2_v2"
+        },
+        "OS": {
+            "value": "Ubuntu1804"
+        },
+        "vmNamePrefix": {
+            "value": "ChaiBastion"
+        },
+        "virtualNetworkName": {
+            "value": "myVNET"
+        },
+        "subnet1Name": {
+            "value": "BastionSubnet"
+        },
+        "sshKeyData": {
+            "value": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEApnHippr2d20nhSCPGFaWiEccVBbQrFPsDjhv52DFO6RHBz70TivZx4XEOQhYvY5odMTUXHbnCr0gvTGTJQ49q5l7Bgyh2x3WZQvcbWbObOqu27dxO2VP4NjKPnlctdPXfnmsOs3dVMxsPS3jEGWIzHZOIEmfDdhXqDM9MAfAcEN2pLCVGliHfl8ZpAjXOcHNHxT3PDpK9SF1vt49qFyHOoBlPXQG4KRsSg/EoYd889i6YCAt+pAfCS14bsWVQSlHNtnJkL45MdXC8FfguNEdDiA70v/WIXGruOni9Y0TRBhPEfVLRwbUQ4upC2HP3A8g03myS8FIw8cAuFrTow1EpQ== rsa-key-20181030"
+        },
+        "os_disk_storage_type": {
+            "value": "Standard_LRS"
+        },
+        "os_disk_size_gb": {
+            "value": 256
+        },
+        "postDeploymentFileUris": {
+            "value": "https://raw.githubusercontent.com/Chai-NED/VMLOOP/master/mountblobbastion.sh"
+        },
+        "postDeploymentScript": {
+            "value": "mountblobbastion.sh"
+        },
+        "disableAdminPasswordAuthentication": {
+            "value": true
+        },
+        "useAvailabilitySet": {
+            "value": "Yes"
+        },
+        "storageAccountName" : {
+            "value" : "chaisa1"
+        }
+
+    }
+}
