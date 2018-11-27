@@ -36,10 +36,10 @@
             "value": 256
         },
         "postDeploymentFileUris": {
-            "value": "https://raw.githubusercontent.com/Chai-NED/VMLOOP/master/postscript.sh"
+            "value": "https://raw.githubusercontent.com/Chai-NED/VMLOOP/master/mountblobmesos.sh"
         },
         "postDeploymentScript": {
-            "value": "postscript.sh"
+            "value": "mountblobmesos.sh"
         },
         "disableAdminPasswordAuthentication": {
             "value": true
