@@ -52,11 +52,6 @@ tmpBlobFuseConfig="/home/$vmAdmin/blobfuse_tmp.cfg"
 # Install blobfuse. Default on Ubuntu is /usr/bin
 sudo apt-get install -y blobfuse fuse 
 
-#sudo apt-get update -y
-#sudo dpkg --configure -a
-#sudo apt-get upgrade -y 
-#sudo apt-get --yes  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
-
 sudo mkdir -p $blobFuseTempPath  
 sudo chown  $vmAdmin  $blobFuseTempPath
 
