@@ -47,8 +47,8 @@
             "type": "string",
             "defaultValue": "Standard_D2_v2",
             "allowedValues": [
-                "Standard_D2_v2",
-                "Standard_D8_v3"
+                "Standard_D8_v3",
+                "Standard_D2_v2"
             ],
             "metadata": {
                 "description": "Allowed SKUs"
@@ -75,13 +75,13 @@
         "virtualNetworkName": {
             "type": "string",
             "metadata": {
-                "description": "Name of the exiting virtual network"
+                "description": "Name of the existing virtual network"
             }
         },
         "subnet1Name": {
             "type": "string",
             "metadata": {
-                "description": "exiting subnet to be used where the VM will be deployed"
+                "description": "exiting subnet to be used/created where the VM will be deployed"
             }
         },
         "sshKeyData": {
@@ -135,10 +135,10 @@
                 "description": "This will deploy VM into availability set"
             }
         },
-        "storageAccountName": {
+        "dnsPrefix": {
             "type": "string",
             "metadata": {
-                "description": "Existing stroage account name"
+                "description": "DNS prefix for external DNS name"
             }
         }
     },
@@ -173,8 +173,11 @@
         "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
         "availabilitySetName": "[concat(parameters('vmNamePrefix'), 'AvSet')]",
         "NicPrefix": "[concat(parameters('vmNamePrefix'),'Nic')]",
-        "storageAccountRef": "[concat ('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-        "storageApiVersion": "[providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]]"
+        "pipName": "[concat(parameters('vmNamePrefix'), '-pip')]",
+        "pipType": "Static",
+        "pipObject": {
+            "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('pipName'))]"
+        }
     },
     "resources": [
         {
@@ -192,6 +195,18 @@
             }
         },
         {
+            "name": "[variables('pipName')]",
+            "apiVersion": "2017-06-01",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "[variables('pipType')]",
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('dnsPrefix')]"
+                }
+            }
+        },
+        {
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[concat(variables('NicPrefix'), copyindex())]",
             "apiVersion": "2018-08-01",
@@ -200,6 +215,9 @@
                 "name": "nicLoop",
                 "count": "[parameters('numberOfInstances')]"
             },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses/', variables('pipName'))]"
+            ],
             "properties": {
                 "enableAcceleratedNetworking": true,
                 "ipConfigurations": [
@@ -207,6 +225,7 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": "[ variables('pipObject')]",
                             "subnet": {
                                 "id": "[variables('subnet1Ref')]"
                             }
@@ -291,15 +310,10 @@
                     "fileUris": [
                         "[parameters('postDeploymentFileUris')]"
                     ],
-                    "commandToExecute": "[concat('sh ', parameters('postDeploymentScript'), ' ', parameters('adminUsername'),' ',parameters('storageAccountName'),' ', listKeys( variables('storageAccountRef'), variables('storageApiVersion')).keys[0].value) ]"
+                    "commandToExecute": "[concat('sh ', parameters('postDeploymentScript')) ]"
                 }
             }
         }
     ],
-    "outputs": {
-        "storageAcccountKey": {
-            "type": "string",
-            "value": "[listKeys( variables('storageAccountRef'), variables('storageApiVersion')).keys[0].value]"
-        }
-    }
+    "outputs": {}
 }
