@@ -19,6 +19,12 @@
         },
         "subnet2Prefix": {
             "value": "10.0.11.0/24"
+        },
+        "subnet3Name": {
+            "value": "BastionSubnet"
+        },
+        "subnet3Prefix": {
+            "value": "10.0.12.0/24"
         }
     }
 }
