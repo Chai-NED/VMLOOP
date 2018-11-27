@@ -25,6 +25,7 @@ C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\network
 
 C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\ipaclforexternallb.template.json --parameters .\ipaclforexternallb.parameters.json
 
+C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\ipaclforbastion.template.json --parameters .\ipaclforbastion.parameters.json
 
 3. Create storage
 =================
