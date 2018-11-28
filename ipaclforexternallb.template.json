@@ -64,10 +64,10 @@
                         "properties": {
                             "description": "Allowed list of public IPs to come in port 443",
                             "protocol": "*",
-                            "sourcePortRange": "[parameters('allowedInboundPort')]",
+                            "sourcePortRange": "*",
                             "sourceAddressPrefixes": "[parameters('allowedInboundIPs')]",
                             "destinationAddressPrefix": "*",
-                            "destinationPortRange": "*",
+                            "destinationPortRange": "[parameters('allowedInboundPort')]",
                             "access": "Allow",
                             "priority": 200,
                             "direction": "Inbound"
