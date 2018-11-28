@@ -99,7 +99,15 @@
                                 "addressPrefix": "[reference(variables('subnetId'), '2018-04-01').addressPrefix]",
                                 "networkSecurityGroup": {
                                     "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('newNsgName'))]"
-                                }
+                                },
+                                "serviceEndpoints": [
+                                    {
+                                        "service": "Microsoft.Storage",
+                                        "locations": [
+                                            "[parameters('location')]"
+                                        ]
+                                    }
+                                ]
                             }
                         }
                     ]
