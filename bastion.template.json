@@ -18,9 +18,9 @@
             "type": "int",
             "defaultValue": 1,
             "minValue": 1,
-            "maxValue": 10,
+            "maxValue": 1,
             "metadata": {
-                "description": "Number of VMs to deploy, limit 10 for now"
+                "description": "Number of VMs to deploy"
             }
         },
         "OS": {
@@ -331,6 +331,10 @@
         "publicipaddress": {
             "value": "[reference(variables('pipName')).ipAddress]",
             "type": "string"
+        },
+        "privateipaddress": {
+            "type": "string",
+            "value": "[reference(concat(variables('NicPrefix'),0)).ipConfigurations[0].properties.privateIPAddress]"
         }
     }
 }
