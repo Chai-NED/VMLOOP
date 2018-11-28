@@ -49,6 +49,9 @@
         },
         "dnsPrefix": {
             "value": "chaiha"
+        },
+        "storageAccountName": {
+            "value": "chaisa1"
         }
     }
 }
