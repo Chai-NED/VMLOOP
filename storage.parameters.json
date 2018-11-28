@@ -11,7 +11,8 @@
         "subnetNames": {
             "value": [
                 "haProxySubnet",
-                "mesosSubnet"
+                "mesosSubnet",
+                "BastionSubnet"
             ]
         },
         "blobContainerNames": {
