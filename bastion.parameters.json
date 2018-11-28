@@ -47,12 +47,8 @@
         "useAvailabilitySet": {
             "value": "Yes"
         },
-        "storageAccountName" : {
-            "value" : "chaisa1"
-        },
         "dnsPrefix": {
             "value": "chaibastion"
         }
-
     }
 }
