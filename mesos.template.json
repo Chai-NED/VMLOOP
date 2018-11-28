@@ -296,10 +296,5 @@
             }
         }
     ],
-    "outputs": {
-        "storageAcccountKey": {
-            "type": "string",
-            "value": "[listKeys( variables('storageAccountRef'), variables('storageApiVersion')).keys[0].value]"
-        }
-    }
+    "outputs": {}
 }

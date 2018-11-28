@@ -323,5 +323,14 @@
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "fqdn": {
+            "value": "[reference(variables('pipName')).dnsSettings.fqdn]",
+            "type": "string"
+        },
+        "publicipaddress": {
+            "value": "[reference(variables('pipName')).ipAddress]",
+            "type": "string"
+        }
+    }
 }
