@@ -140,6 +140,12 @@
             "metadata": {
                 "description": "DNS prefix for external DNS name"
             }
+        },
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Existing storage account name"
+            }
         }
     },
     "variables": {
@@ -177,7 +183,9 @@
         "pipType": "Static",
         "pipObject": {
             "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('pipName'))]"
-        }
+        },
+        "storageAccountRef": "[concat ('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
+        "storageApiVersion": "[providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]]"
     },
     "resources": [
         {
