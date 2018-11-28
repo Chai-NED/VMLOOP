@@ -310,7 +310,7 @@
                     "fileUris": [
                         "[parameters('postDeploymentFileUris')]"
                     ],
-                    "commandToExecute": "[concat('sh ', parameters('postDeploymentScript')) ]"
+                    "commandToExecute": "[concat('sh ', parameters('postDeploymentScript'), ' ', parameters('adminUsername'),' ',parameters('storageAccountName'),' ', listKeys( variables('storageAccountRef'), variables('storageApiVersion')).keys[0].value) ]"
                 }
             }
         }
