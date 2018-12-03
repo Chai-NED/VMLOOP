@@ -23,8 +23,13 @@ These templates must be deployed in the following order:
 
 1. Create virtual network and subnets
 ======================================
+Do not deploy the network.template.json to a resource group you share with others. The example is only for a deployment in your own resource group.
 
 C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\network.template.json --parameters .\network.parameters.json
+
+If you want to create a subnet in an existing virtual network in a resource group you share with colleagues. Use the addsubnet.template.json template
+
+C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\addsubnet.template.json --parameters .\addsubnet.parameters.json
 
 
 2. Apply IP ACL to subnets
@@ -38,6 +43,8 @@ C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\ipaclfo
 =================
 
 C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\storage.template.json --parameters .\storage.parameters.json
+
+
 
 4. Create bastion VM
 =====================
