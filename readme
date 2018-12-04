@@ -35,6 +35,7 @@ If you need to create more than a subnet, deploy it multiple times with differen
 
 2. Apply IP ACL to subnets
 ===========================
+At this point, you should have two subnets created from Step 1. Now, go ahead and apply the firewall to them.
 
 C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\ipaclforexternallb.template.json --parameters .\ipaclforexternallb.parameters.json
 
