@@ -31,6 +31,7 @@ If you want to create a subnet in an existing virtual network in a resource grou
 
 C:>\az group deployment create --name Deploy1 -g pocrg --template-file .\addsubnet.template.json --parameters .\addsubnet.parameters.json
 
+If you need to create more than a subnet, deploy it multiple times with different parameter value.
 
 2. Apply IP ACL to subnets
 ===========================
